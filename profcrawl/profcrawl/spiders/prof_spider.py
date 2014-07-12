@@ -15,7 +15,8 @@ class ProfQuerySpider(Spider):
         'ratings': 'div[class="profRatings"]::text',
         'avg': 'div[class="profAvg"]::text',
         'easy': 'div[class="profEasy"]::text',
-        'hot': 'div[class="profHot notHot"]::text'
+        'hot': 'div[class="profHot notHot"]::text',
+        'url': 'div[class="profName"] > a::attr(href)'
     }
 
     url_base = "http://ratemyprofessors.com/"
@@ -30,8 +31,8 @@ class ProfQuerySpider(Spider):
         sel = Selector(response)
         next_page = sel.xpath('//a[@id="next"]/@href').extract()
         print next_page
-        if next_page:
-            yield Request(self.url_base + next_page[0], self.parse)
+        # if next_page:
+        #     yield Request(self.url_base + next_page[0], self.parse)
 
         self.profs = self.parse_profs(response)
 
@@ -47,9 +48,16 @@ class ProfQuerySpider(Spider):
         sel = Selector(response)
         profs = sel.css(self.prof_query)
         for prof in profs:
+            url = self.url_base + prof.css(self.queries['url']).extract()[0]
             loader = ProfLoader(item=Prof(), selector = prof, response=response)
             for key, value in self.queries.items():
                 loader.add_css(key, value)
             prof_list.append(loader.load_item())
-        return prof_list
+            yield Request(url, meta={'item':prof}, callback=self.parse_prof_record)
 
+
+    def parse_prof_record(self, response):
+        """
+        Parse an individual prof's record.
+        """
+        pass

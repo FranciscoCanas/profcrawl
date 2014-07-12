@@ -14,3 +14,4 @@ class Prof(Item):
     avg = Field(output_processor=TakeFirst())
     easy = Field(output_processor=TakeFirst())
     hot = Field(output_processor=TakeFirst())
+    url = Field(output_processor=TakeFirst())
