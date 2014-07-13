@@ -6,3 +6,6 @@ __author__ = 'fcanas'
 
 class ProfLoader(ItemLoader):
     default_input_processor = MapCompose(nltk.clean_html)
+
+class RatingLoader(ItemLoader):
+    default_input_processor = MapCompose(nltk.clean_html)

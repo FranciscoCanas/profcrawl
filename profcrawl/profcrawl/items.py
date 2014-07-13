@@ -15,3 +15,14 @@ class Prof(Item):
     easy = Field(output_processor=TakeFirst())
     hot = Field(output_processor=TakeFirst())
     url = Field(output_processor=TakeFirst())
+
+class Rating(Item):
+    date = Field(output_processor=TakeFirst())
+    course = Field(output_processor=TakeFirst())
+    comment = Field(output_processor=TakeFirst())
+    quality = Field(output_processor=TakeFirst())
+    easiness = Field(output_processor=TakeFirst())
+    helpfulness = Field(output_processor=TakeFirst())
+    clarity = Field(output_processor=TakeFirst())
+    interest = Field(output_processor=TakeFirst())
+    grade = Field(output_processor=TakeFirst())
