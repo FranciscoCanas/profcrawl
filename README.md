@@ -8,5 +8,5 @@ Usage
 
 From the root of project, run:
 
-    $ scrapy crawl query.profs -t json -o output_file.json -q query_file
+    $ scrapy crawl query.profs -t json -o output_file.json -a query=query_file
 

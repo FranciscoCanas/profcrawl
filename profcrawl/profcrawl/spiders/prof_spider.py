@@ -34,8 +34,25 @@ class ProfQuerySpider(Spider):
 
     url_base = "http://ratemyprofessors.com/"
     name = "query.profs"
-    allowed_domains = ["ratemyprofessors.com"]
-    start_urls = ["http://www.ratemyprofessors.com/SelectTeacher.jsp?the_dept=All&sid=1484"]
+    allowed_domains = []
+    start_urls = []
+
+    def __init__(self, query, *args, **kwargs):
+        """
+        Query: A file containing a domain and query to start scrape from.
+        """
+        self.init_query(query)
+        super(ProfQuerySpider, self).__init__(*args, **kwargs)
+
+    def init_query(self, path):
+        """
+        Given the path to a query file, obtain the domain and start_urls.
+        """
+        with open(path, 'r') as qfile:
+            lines = qfile.readlines()
+            self.allowed_domains = [lines[0].strip()]
+            for line in lines[1:]:
+                self.start_urls.append(line.strip())
 
     def parse(self, response):
         """
