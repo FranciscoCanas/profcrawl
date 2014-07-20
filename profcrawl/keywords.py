@@ -65,7 +65,7 @@ def create_docs(path, target):
         document['id'] = str(prof['url'].split('=')[1])
         print document['id']
         document['name'] = prof['name']
-        document['body'] = ' '.join([ rating['comment'] for rating in prof['ratings']])
+        document['body'] = ' '.join([rating['comment'] for rating in prof['ratings'] if rating.has_key('comment')])
         output['documents'].append(document)
 
     output_file = target + '/documents.json'
