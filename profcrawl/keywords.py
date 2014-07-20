@@ -89,7 +89,7 @@ def extract_stats(documents, target):
         'tfidf_cutoff': 0.002
     }
 
-    d = Distiller(document_file=documents, target_path=target, nlp_args=nlp_args)
+    d = Distiller(document_file=documents, target_path=target, nlp_args=nlp_args, verbosity=3)
 
 
 def make_path(path):
