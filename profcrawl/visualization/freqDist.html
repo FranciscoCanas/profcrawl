@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+<script src="js/globals.js"></script>
+<script src="js/freqDist.js"></script>
+<link href="css/freqDist.css" type="text/css" rel="stylesheet" />
+</head>
+<body>	
+	<input type="button" value="load dataset" onclick="loadDataset(document.getElementById('dataset').value, document.getElementById('dist').value,
+	getElementById('top').value)"/>
+	<input type="text" id="dataset" value="eap62"/>
+	<input type="text" id="dist" value="keywords"/>
+	<input type="text" id="top" value="25" />
+	<div class="title" id="bartitle">Extracted Statistics</div>
+</body>
+</html>

@@ -10,9 +10,10 @@ def main(args):
     """
     Extracts summary keywords from a collection of scraped prof reviews.
     """
-    make_path(args.target)
-    docs = create_docs(args.path, args.target)
-    extract_stats(docs, args.target)
+    target_path = 'visualization/data/' + args.target + '/'
+    make_path(target_path)
+    docs = create_docs(args.path, target_path)
+    extract_stats(docs, target_path)
 
 
 def create_docs(path, target):
@@ -68,7 +69,7 @@ def create_docs(path, target):
         document['body'] = ' '.join([rating['comment'] for rating in prof['ratings'] if rating.has_key('comment')])
         output['documents'].append(document)
 
-    output_file = target + '/documents.json'
+    output_file = target + 'documents.json'
 
     with open(output_file, 'w') as docsfile:
         json.dump(output, docsfile)
@@ -78,14 +79,14 @@ def create_docs(path, target):
 def extract_stats(documents, target):
     """
     Generates reports based on extracted keywords from the given
-    documents, storing them in the folder at target.
+    documents, storing them under visualization/data/<target>.
     """
     nlp_args = {
         'black_list': ['professor', 'prof', 'class', 'course', 'teacher', 'teaching', 'university', 'school'],
         'normalize': True,
         'stem': True,
         'lemmatize': False,
-        'pos_list': ['NN','NNP', 'ADJ'],
+        'pos_list': ['JJ', 'JJR', 'JJS'],
         'tfidf_cutoff': 0.002
     }
 
