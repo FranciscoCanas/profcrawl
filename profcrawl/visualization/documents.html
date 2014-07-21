@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
-<script src="js/globals.js"></script>
-<script src="js/documents.js"></script>
-<link href="css/documents.css" type="text/css" rel="stylesheet" />
-</head>
-<body>	
-	<input type="button" value="load dataset" onclick="loadDataset(document.getElementById('dataset').value, document.getElementById('dist').value,
-	getElementById('top').value)"/>
-	<input type="text" id="dataset" value=""/>
-	<input type="text" id="top" value="25" />
-	<div class="title" id="bartitle">Document Statistics</div>
-</body>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+		<script src="js/globals.js"></script>
+		<script src="js/documents.js"></script>
+		<link href="css/documents.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>	
+		<input type="button" value="load dataset" onclick="loadDataset(document.getElementById('dataset').value)"/>
+		<input type="text" id="dataset" value=""/>
+		<div class="title" id="bartitle">Document Statistics</div>
+		<table id="docsmap" class="outer">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>top 5 keywords</th>
+				</tr>
+			</thead>
+			<tbody id="docsmapBody">
+			</tbody>
+		</table>
+	</body>
 </html>

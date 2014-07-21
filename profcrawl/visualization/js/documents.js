@@ -10,62 +10,44 @@ var currentDataset;
  * Return the url to the given bz.
  */
 function constructUrl(id) {
-	return bugmap[id]['url'];
+	return docmap[id]['url'] + id;
 }
 
 function getIdsFromKey(key) {
 	return keymap[key];
 }
 
-function makeMap(keys) {
-	var table = $('#mapToIdBody');
+function makedocs(keys) {
+	console.log('making docs table');
+	var table = $('#docsmapBody');
 	$.each(keys, function(i,el) {
-        	makeMapEntry(table, el);
+        	makeDocEntry(table, el);
     	});
 }
 
-/**
- * Loads the given keymap from the given dataset.
- */
- function loadKeymap(dataset) {
- 	var path = ' data/' + dataset + '/documents.json';
-	console.log('Loading' + path); 	 
-	if (keymap == null) {
-		$.getJSON(path,
-	    	function(data) {
-	        keymap = data;
-	        loadDocuments(dataset);
-	    });
-	} else {
-		console.log('keymap already loaded');
-		loadBugmap(dataset);
-	}
- }
-
-function loadDocuments(dataset) {
+function loadDataset(dataset) {
  	var path = ' data/' + dataset + '/docmap.json';
  	console.log('Loading' + path);
- 	if (bugmap == null) {
+ 	if (docmap == null) {
 	 	 $.getJSON(path,
 	    	function(data) {
-	        bugmap = data;
-	        makeMap(getIdsFromKey(currentKey));
+	        docmap = data;
 	    });	
  	} else {
- 		console.log('bugmap already loaded');
- 		makeMap(getIdsFromKey(currentKey));
+ 		console.log('documents already loaded');
  	}
+ 	console.log(JSON.stringify(docmap, undefined, 2))
+ 	makedocs(Object.keys(docmap));
  }
 
-function makeMapEntry(parent, element) {
-	var bug = bugmap[element];
-	var desc = bug['description'];
-	var keywords = bug['keywords'];
+function makeDocEntry(parent, element) {
+	var doc = docmap[element];
+	var id = doc['id'];
+	var keywords = doc['keywords'];
 
 	parent.append('<tr><th><a href="'+ 
 		constructUrl(element) + '">' + 
-		element +'</a></th><td>' + 
-		desc + '</td><td id="' + element + '"></td></tr>');
+		element +'</a></th><td id="' + element + '"></td></tr>');
 
 	var top5 = makeTopWords(keywords.slice(0,5));
 	parent.find('#' + element).append(top5);	
@@ -107,7 +89,5 @@ function transitionToKeyMap(key) {
 
 $(document).ready(function() {
 	currentDataset = localStorage.getItem('_current_dataset');
-	currentKey = localStorage.getItem('_current_key');
-	$('#mapTitle').text(currentKey);
-	loadKeymap(currentDataset);
+	loadDataset(currentDataset);
 });

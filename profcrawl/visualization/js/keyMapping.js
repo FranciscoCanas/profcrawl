@@ -11,7 +11,7 @@ var currentDataset;
  * Return the url to the given bz.
  */
 function constructUrl(id) {
-	return bugmap[id]['url'];
+	return bugmap[id]['url'] + id;
 }
 
 function getIdsFromKey(key) {
