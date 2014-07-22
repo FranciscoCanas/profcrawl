@@ -54,6 +54,7 @@ def create_docs(path, target):
     output['documents'] = []
     output['metadata'] = {}
     output['metadata']['base_url'] = 'http://www.ratemyprofessors.com/ShowRatings.jsp?tid='
+    profmap = {}
 
     bu = output['metadata']['base_url']
 
@@ -68,6 +69,11 @@ def create_docs(path, target):
         document['name'] = prof['name']
         document['body'] = ' '.join([rating['comment'] for rating in prof['ratings'] if rating.has_key('comment')])
         output['documents'].append(document)
+        profmap[document['id']] = prof
+
+    with open(target + 'data.json', 'w') as outdata:
+        json.dump(profmap, outdata)
+    outdata.close()
 
     output_file = target + 'documents.json'
 
