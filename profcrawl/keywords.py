@@ -71,6 +71,7 @@ def create_docs(path, target):
         output['documents'].append(document)
         profmap[document['id']] = prof
 
+    # copy a document map of ids => documents to target folder
     with open(target + 'data.json', 'w') as outdata:
         json.dump(profmap, outdata)
     outdata.close()
